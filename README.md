@@ -21,16 +21,25 @@ Code in process
 - User in group = be able to validate if an user is part of a group
 
 
+Setting the environment
+=======
+- Install Virtual Environments ( http://docs.python-guide.org/en/latest/dev/virtualenvs/ )
+- Create the venv and activate ( )
+- Install the requeriments ( pip install -r requirements.txt )
+- Execute $ python authcon.py ( by default the service starts on 0.0.0.0:5000 )
+
+
 Let's see how it works
 =======
 
 * Authenticate an user:
 
-	Correct login data:
-		Query:
+	- Correct login data:
+
+	Query:
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"username": "alvaro", "password":"1qaz2wsx3edc"} }}' -H 'Content-type: application/json'
 
-		Response: < HTTP/1.0 200 OK
+	Response: < HTTP/1.0 200 OK
 		{
 		  "access": {
 			"token": {
@@ -39,54 +48,56 @@ Let's see how it works
 		  }
 		}
 
-	Incorrect login data:
-		Query:
+	- Incorrect login data:
+
+	Query:
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"username": "alvaro", "password":"1234567890"} }}' -H 'Content-type: application/json'
 
-		Response: < HTTP/1.0 401 UNAUTHORIZED
+	Response: < HTTP/1.0 401 UNAUTHORIZED
 		{
 		  "message": "Unauthorized."
 		}
 
-	Bad request: 
-		Query:
+	- Bad request: 
+
+	Query:
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"}}}' -H 'Content-type: application/json'
 
-		Response: < HTTP/1.0 400 BAD REQUEST
+	Response: < HTTP/1.0 400 BAD REQUEST
 		{
 		  "message": "The request cannot be fulfilled due to bad syntax."
 		}
 
 * Validate token:
 
-	Token OK:
+	- Token OK:
 
-		Query: 
+	Query: 
 		$ curl -k -X 'GET' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcwxawY2IQsFzwzVLN3m1Ub92IFmsN7zO9g.*AAJTSQACMDEAAlNLABMtMjc4MDc4NTI5NzcwNDc1NDEw
 
-		Response: < HTTP/1.0 200 OK
+	Response: < HTTP/1.0 200 OK
 		{}
 
-	Token FAIL:
+	- Token FAIL:
 
-		Query:
+	Query:
 		$ curl -k -X 'GET' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw.*AAJTSQACMDEAAlNLABQtOTEzMzk1NjM0NDU5ODMxNDg5OQ..*
 
-		Response: < HTTP/1.0 203 NON AUTHORITATIVE INFORMATION
+	Response: < HTTP/1.0 203 NON AUTHORITATIVE INFORMATION
 		{}
 
 * Logout token:
 
-	Token OK:
-		Query:
+	- Token OK:
+	Query:
 		$ curl -k -X 'DELETE' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw.*AAJTSQACMDEAAlNLABQtOTEzMzk1NjM0NDU5ODMxNDg5OQ..*
 
-		Response: < HTTP/1.0 200 OK
+	Response: < HTTP/1.0 200 OK
 		{}
 
-	Token FAIL:
-		Query: 
+	- Token FAIL:
+	Query: 
 		$ curl -k -X 'DELETE' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw
 		
-		Response: < HTTP/1.0 202 ACCEPTED
+	Response: < HTTP/1.0 202 ACCEPTED
 		{}

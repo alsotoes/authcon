@@ -11,8 +11,8 @@
     :license:       GPL v2, see LICENSE for more details.
     :contact info:  http://headup.ws / alsotoes@gmail.com
 """
-    
-__version__ = "0.0.1"   
+
+__version__ = "0.0.1"
 
 #
 

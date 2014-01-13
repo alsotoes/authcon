@@ -37,9 +37,11 @@ Let's see how it works
 	- Correct login data:
 
 	Query:
+
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"username": "alvaro", "password":"1qaz2wsx3edc"} }}' -H 'Content-type: application/json'
 
 	Response: < HTTP/1.0 200 OK
+
 		{
 		  "access": {
 			"token": {
@@ -51,9 +53,11 @@ Let's see how it works
 	- Incorrect login data:
 
 	Query:
+
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"username": "alvaro", "password":"1234567890"} }}' -H 'Content-type: application/json'
 
 	Response: < HTTP/1.0 401 UNAUTHORIZED
+
 		{
 		  "message": "Unauthorized."
 		}
@@ -61,9 +65,11 @@ Let's see how it works
 	- Bad request: 
 
 	Query:
+
 		$ curl -k -X 'POST' http://0.0.0.0:5000/v1.0/tokens -d '{"auth":{"passwordCredentials":{"}}}' -H 'Content-type: application/json'
 
 	Response: < HTTP/1.0 400 BAD REQUEST
+
 		{
 		  "message": "The request cannot be fulfilled due to bad syntax."
 		}
@@ -73,31 +79,41 @@ Let's see how it works
 	- Token OK:
 
 	Query: 
+
 		$ curl -k -X 'GET' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcwxawY2IQsFzwzVLN3m1Ub92IFmsN7zO9g.*AAJTSQACMDEAAlNLABMtMjc4MDc4NTI5NzcwNDc1NDEw
 
 	Response: < HTTP/1.0 200 OK
+
 		{}
 
 	- Token FAIL:
 
 	Query:
+
 		$ curl -k -X 'GET' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw.*AAJTSQACMDEAAlNLABQtOTEzMzk1NjM0NDU5ODMxNDg5OQ..*
 
 	Response: < HTTP/1.0 203 NON AUTHORITATIVE INFORMATION
+
 		{}
 
 * Logout token:
 
 	- Token OK:
+
 	Query:
+
 		$ curl -k -X 'DELETE' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw.*AAJTSQACMDEAAlNLABQtOTEzMzk1NjM0NDU5ODMxNDg5OQ..*
 
 	Response: < HTTP/1.0 200 OK
+
 		{}
 
 	- Token FAIL:
+
 	Query: 
+
 		$ curl -k -X 'DELETE' http://0.0.0.0:5000/v1.0/tokens/AQIC5wM2LY4SfcxT_B7s4OzCcGb1LcgORTCCIAPTuoqBsFw
 		
 	Response: < HTTP/1.0 202 ACCEPTED
+
 		{}

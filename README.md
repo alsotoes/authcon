@@ -5,7 +5,7 @@ AuthCon is a RESTful API Python connector to OpenAM.
 
     :copyright:     (c) 2014 by Alvaro Soto
     :license:       GPL v2, see LICENSE for more details.
-    :contact info:  http://headup.ws / alsotoes@gmail.com
+    :contact info:  https://headup.ws / alsotoes@gmail.com
 
 
 Functionality implemented so far.
